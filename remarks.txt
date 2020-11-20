@@ -1,0 +1,7 @@
+webpack
+    babel
+    scss
+    eslint
+    2 modes
+git
+
