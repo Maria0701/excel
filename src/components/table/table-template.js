@@ -10,8 +10,14 @@ function toColumn(el, index) {
         </div>`;
 }
 
-function toCell(el, index) {
-    return `<div class="cell" contenteditable data-col=${index}>${el}</div>`;
+function toCell(row) {
+    return function(_, col) {
+        return `<div class="cell" 
+            contenteditable 
+            data-col=${col}
+            data-type="cell" 
+            data-id=${row}:${col}></div>`;
+    };
 }
 
 function createRow(el, index = '') {
@@ -52,13 +58,14 @@ export function createTable(rowsCount = 15) {
 
     rows.push(createRow(cols));
 
-    for (let i = 0; i < colsCount; i++) {
+    for (let row = 0; row < colsCount; row++) {
         const cells = new Array(colsCount)
             .fill('')
-            .map(toCell)
+            // .map((_, col) => toCell(row, col))
+            .map( toCell(row))
             .join('');
 
-        rows.push(createRow(cells, i + 1));
+        rows.push(createRow(cells, row + 1));
     }
     return rows.join('');
 }
