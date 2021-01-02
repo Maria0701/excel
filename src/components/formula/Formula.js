@@ -14,14 +14,19 @@ export class Formula extends ExcelComponent {
 
     init() {
         super.init();
-        const inputField = this.$root.find('.input');
+        this.$formula = this.$root.find('.input');
 
-        this.$on('table:input', $cell => {
-            inputField.text($cell.text());
-        });
+        // this.$on('table:input', $cell => {
+        //     $formula.text($cell.text());
+        // });
 
         this.$on('table:move', $cell => {
-            inputField.text($cell.text());
+            this.$formula.text($cell.text());
+        });
+
+        this.$subscribe(state => {
+            console.log('formuls', state.currentText);
+            this.$formula.text(state.currentText);
         });
     }
 
