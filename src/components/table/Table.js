@@ -6,6 +6,7 @@ import {TableSelection} from './TableSelection';
 import {isCell, matrix, nextSelector, KEY_CODES} from './table-functions';
 import {$} from '@core/dom';
 import * as actions from '../../redux/actions';
+import {DEFAULT_STYLES} from '../../constants';
 
 
 export class Table extends ExcelComponent {
@@ -31,7 +32,6 @@ export class Table extends ExcelComponent {
         super.init();
         const $cell = this.$root.find('[data-id = "0:0"]');
         this.selectCell($cell);
-        console.log(this.store);
 
         this.$on('formula:input', text => {
             this.selection.current.text(text);
@@ -42,15 +42,20 @@ export class Table extends ExcelComponent {
             this.selection.current.focus();
         });
 
-        this.$subscribe(state => {
-            console.log('TableState', state);
+        this.$on('toolbar:applyStyle', (value) => {
+            this.selection.applyStyle(value);
+            this.$dispatch(actions.applyStyle({
+                value,
+                ids: this.selection.selectedIds,
+            }));
         });
     }
 
     selectCell($cell) {
         this.selection.select($cell);
         this.$emit('table:move', $cell);
-        this.$dispatch({type: 'TEST'});
+        const styles = $cell.getStyles(Object.keys(DEFAULT_STYLES));
+        this.$dispatch(actions.changeStyles(styles));
     }
 
     async resiseTable(evt) {
