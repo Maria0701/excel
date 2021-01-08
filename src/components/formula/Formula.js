@@ -22,13 +22,8 @@ export class Formula extends ExcelComponent {
         // });
 
         this.$on('table:move', $cell => {
-            this.$formula.text($cell.text());
+            this.$formula.text($cell.data.value);
         });
-
-        // this.$subscribe(state => {
-        //     console.log('formuls', state.currentText);
-        //     this.$formula.text(state.currentText);
-        // });
     }
 
     storeChanged({currentText}) {

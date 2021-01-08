@@ -1,7 +1,8 @@
-import {DEFAULT_STYLES} from '../constants';
+import {DEFAULT_STYLES, DEFAULT_TITLE} from '../constants';
 import {storage} from '../core/utils';
 
 const defaultState = {
+    title: DEFAULT_TITLE,
     rowState: {},
     colState: {},
     dataState: {},
