@@ -8,21 +8,26 @@ export class Formula extends ExcelComponent {
         super($root, {
             name: 'Formula',
             listeners: ['input', 'click', 'keydown'],
+            subscribe: ['currentText'],
             ...options,
         });
     }
 
     init() {
         super.init();
-        const inputField = this.$root.find('.input');
+        this.$formula = this.$root.find('.input');
 
-        this.$on('table:input', $cell => {
-            inputField.text($cell.text());
-        });
+        // this.$on('table:input', $cell => {
+        //     $formula.text($cell.text());
+        // });
 
         this.$on('table:move', $cell => {
-            inputField.text($cell.text());
+            this.$formula.text($cell.data.value);
         });
+    }
+
+    storeChanged({currentText}) {
+        this.$formula.text(currentText);
     }
 
     toHTML() {
