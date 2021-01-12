@@ -38,7 +38,7 @@ function toCell(state, row) {
             ...DEFAULT_STYLES,
             ...state.stylesState[id],
         });
-        console.log(data);
+
         return `<div class="cell" 
             contenteditable 
             data-col=${col}

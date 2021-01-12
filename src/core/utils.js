@@ -53,3 +53,21 @@ export function debounce(fn, wait) {
         timeout = setTimeout(later, wait);
     };
 }
+
+
+export function clone(obj) {
+    return JSON.parse(JSON.stringify(obj));
+}
+
+export function dateToNormal(dateNew) {
+    const dateN = new Date(dateNew);
+    const month = dateN.getMonth() + 1 > 10
+        ? dateN.getMonth() + 1
+        : `0${dateN.getMonth() + 1}`;
+
+    return `${dateN.getDate()}:${month}:${dateN.getFullYear()}`;
+}
+
+export function preventDefault(evt) {
+    evt.preventDefault();
+}
